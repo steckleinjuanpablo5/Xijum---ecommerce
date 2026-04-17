@@ -2,7 +2,7 @@ name: Deploy Frontend to GitHub Pages
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -20,15 +20,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Prepare static site
         run: |
+          rm -rf site
           mkdir -p site
           cp -R frontend/* site/
-          cp -R public site/public || true
+          cp -R public site/public
           touch site/.nojekyll
 
       - name: Setup Pages
