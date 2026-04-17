@@ -1,0 +1,10 @@
+{
+  "name": "xijum-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "backend:install": "npm --prefix backend install",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:start": "npm --prefix backend start"
+  }
+}

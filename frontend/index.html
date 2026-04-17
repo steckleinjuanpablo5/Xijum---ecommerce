@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xijúm · Papelería creativa</title>
+  <meta name="description" content="Tienda en línea de agendas, planners, libretas, stickers y accesorios de papelería creativa." />
+  <link rel="icon" href="./public/logo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" aria-label="Ir a inicio">
+        <img src="./public/logo.svg" alt="Logo de Xijúm" class="brand-logo" />
+        <div>
+          <strong>Xijúm</strong>
+          <span>Papelería creativa</span>
+        </div>
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Abrir menú</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Principal">
+        <a href="#home">Inicio</a>
+        <a href="#catalog">Catálogo</a>
+        <a href="#account" id="nav-account-link">Mi cuenta</a>
+        <a href="#admin" id="nav-admin-link" class="hidden">Admin</a>
+      </nav>
+
+      <div class="header-actions">
+        <form id="global-search-form" class="global-search" role="search">
+          <label class="sr-only" for="global-search-input">Buscar productos</label>
+          <input id="global-search-input" type="search" placeholder="Buscar agendas, libretas..." />
+          <button type="submit" aria-label="Buscar">
+            🔎
+          </button>
+        </form>
+
+        <button id="cart-button" class="icon-button" aria-label="Abrir carrito">
+          🛒 <span id="cart-count" class="badge">0</span>
+        </button>
+
+        <button id="user-button" class="user-chip" aria-label="Abrir sesión o ver cuenta">
+          <span>👤</span>
+          <span id="user-button-text">Ingresar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section id="hero-view" class="page-view">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Diseño cálido · organización bonita</span>
+          <h1>Agendas, planners y libretas que dan ganas de usarse todos los días.</h1>
+          <p>
+            Descubre productos de papelería con una estética acogedora, funcional y vibrante.
+            Xijúm combina organización, creatividad y detalles que alegran tu rutina.
+          </p>
+          <div class="hero-actions">
+            <a href="#catalog" class="btn btn-primary">Comprar ahora</a>
+            <a href="#account" class="btn btn-secondary">Mi cuenta</a>
+          </div>
+          <ul class="feature-list" aria-label="Beneficios de compra">
+            <li>Envío gratis desde $999</li>
+            <li>Pago seguro con Stripe en modo prueba</li>
+            <li>Catálogo real con precios de venta</li>
+          </ul>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <img src="./public/images/categories/agenda.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="container section-spacer">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Categorías</span>
+            <h2>Explora por tipo de producto</h2>
+          </div>
+        </div>
+        <div id="home-categories" class="category-grid"></div>
+      </div>
+
+      <div class="container section-spacer">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Más vendidos</span>
+            <h2>Favoritos de la comunidad</h2>
+          </div>
+          <a href="#catalog" class="text-link">Ver todo</a>
+        </div>
+        <div id="featured-products" class="product-grid"></div>
+      </div>
+    </section>
+
+    <section id="catalog-view" class="page-view hidden">
+      <div class="container section-spacer">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Catálogo</span>
+            <h2>Encuentra tu papelería ideal</h2>
+          </div>
+        </div>
+
+        <div class="catalog-toolbar card">
+          <div class="field-group">
+            <label for="catalog-search">Buscar</label>
+            <input type="search" id="catalog-search" placeholder="Ej. agenda semanal" />
+          </div>
+          <div class="field-group">
+            <label for="catalog-category">Categoría</label>
+            <select id="catalog-category"></select>
+          </div>
+          <div class="field-group">
+            <label for="catalog-sort">Ordenar por</label>
+            <select id="catalog-sort">
+              <option value="featured">Destacados</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+              <option value="name-asc">Nombre A-Z</option>
+            </select>
+          </div>
+          <div class="toolbar-actions">
+            <button class="btn btn-secondary" id="catalog-reset">Limpiar filtros</button>
+          </div>
+        </div>
+
+        <div id="catalog-status" class="catalog-status"></div>
+        <div id="catalog-grid" class="product-grid"></div>
+      </div>
+    </section>
+
+    <section id="product-view" class="page-view hidden">
+      <div class="container section-spacer" id="product-container"></div>
+    </section>
+
+    <section id="cart-view" class="page-view hidden">
+      <div class="container section-spacer">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Carrito</span>
+            <h2>Tus productos seleccionados</h2>
+          </div>
+        </div>
+        <div class="cart-layout">
+          <div id="cart-items" class="card cart-items"></div>
+          <aside id="cart-summary" class="card cart-summary"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="auth-view" class="page-view hidden">
+      <div class="container section-spacer auth-layout">
+        <div class="card auth-card">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-auth-tab="login">Iniciar sesión</button>
+            <button class="auth-tab" data-auth-tab="register">Crear cuenta</button>
+            <button class="auth-tab" data-auth-tab="forgot">Recuperar contraseña</button>
+          </div>
+
+          <form id="login-form" class="auth-form">
+            <h2>Bienvenido de vuelta</h2>
+            <div class="field-group">
+              <label for="login-email">Correo electrónico</label>
+              <input id="login-email" name="email" type="email" required />
+            </div>
+            <div class="field-group">
+              <label for="login-password">Contraseña</label>
+              <input id="login-password" name="password" type="password" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Entrar</button>
+          </form>
+
+          <form id="register-form" class="auth-form hidden">
+            <h2>Crea tu cuenta</h2>
+            <div class="form-grid">
+              <div class="field-group">
+                <label for="register-first-name">Nombre</label>
+                <input id="register-first-name" name="firstName" type="text" required />
+              </div>
+              <div class="field-group">
+                <label for="register-last-name">Apellido</label>
+                <input id="register-last-name" name="lastName" type="text" required />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="register-email">Correo electrónico</label>
+              <input id="register-email" name="email" type="email" required />
+            </div>
+            <div class="field-group">
+              <label for="register-phone">Teléfono</label>
+              <input id="register-phone" name="phone" type="tel" />
+            </div>
+            <div class="field-group">
+              <label for="register-password">Contraseña</label>
+              <input id="register-password" name="password" type="password" required />
+              <small>Debe incluir mayúscula, minúscula, número y símbolo.</small>
+            </div>
+            <button class="btn btn-primary" type="submit">Crear cuenta</button>
+          </form>
+
+          <form id="forgot-form" class="auth-form hidden">
+            <h2>Recuperar contraseña</h2>
+            <div class="field-group">
+              <label for="forgot-email">Correo electrónico</label>
+              <input id="forgot-email" name="email" type="email" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Enviar enlace</button>
+          </form>
+
+          <form id="reset-form" class="auth-form hidden">
+            <h2>Restablecer contraseña</h2>
+            <div class="field-group">
+              <label for="reset-password">Nueva contraseña</label>
+              <input id="reset-password" name="password" type="password" required />
+            </div>
+            <button class="btn btn-primary" type="submit">Guardar nueva contraseña</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="account-view" class="page-view hidden">
+      <div class="container section-spacer">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Mi cuenta</span>
+            <h2>Perfil y pedidos</h2>
+          </div>
+          <button class="btn btn-secondary" id="logout-button">Cerrar sesión</button>
+        </div>
+
+        <div class="account-grid">
+          <form id="profile-form" class="card">
+            <h3>Datos personales</h3>
+            <div class="form-grid">
+              <div class="field-group">
+                <label for="profile-first-name">Nombre</label>
+                <input id="profile-first-name" name="firstName" type="text" required />
+              </div>
+              <div class="field-group">
+                <label for="profile-last-name">Apellido</label>
+                <input id="profile-last-name" name="lastName" type="text" required />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="profile-email">Correo</label>
+              <input id="profile-email" name="email" type="email" disabled />
+            </div>
+            <div class="field-group">
+              <label for="profile-phone">Teléfono</label>
+              <input id="profile-phone" name="phone" type="tel" />
+            </div>
+            <button class="btn btn-primary" type="submit">Guardar cambios</button>
+          </form>
+
+          <div class="card">
+            <h3>Historial de pedidos</h3>
+            <div id="orders-list" class="orders-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin-view" class="page-view hidden">
+      <div class="container section-spacer">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Administración</span>
+            <h2>Gestión de tienda</h2>
+          </div>
+        </div>
+
+        <div id="admin-dashboard" class="admin-metrics"></div>
+
+        <div class="admin-grid">
+          <div class="card">
+            <h3>Productos</h3>
+            <form id="admin-product-form" class="stack-gap">
+              <input type="hidden" id="admin-product-id" />
+              <div class="form-grid">
+                <div class="field-group">
+                  <label for="admin-product-name">Nombre</label>
+                  <input id="admin-product-name" required />
+                </div>
+                <div class="field-group">
+                  <label for="admin-product-slug">Slug</label>
+                  <input id="admin-product-slug" required />
+                </div>
+                <div class="field-group">
+                  <label for="admin-product-sku">SKU</label>
+                  <input id="admin-product-sku" required />
+                </div>
+                <div class="field-group">
+                  <label for="admin-product-category">Categoría</label>
+                  <select id="admin-product-category"></select>
+                </div>
+                <div class="field-group">
+                  <label for="admin-product-price">Precio</label>
+                  <input id="admin-product-price" type="number" min="0" step="0.01" required />
+                </div>
+                <div class="field-group">
+                  <label for="admin-product-stock">Stock</label>
+                  <input id="admin-product-stock" type="number" min="0" step="1" required />
+                </div>
+                <div class="field-group">
+                  <label for="admin-product-image">Imagen</label>
+                  <select id="admin-product-image">
+                    <option value="agenda.svg">agenda.svg</option>
+                    <option value="planner.svg">planner.svg</option>
+                    <option value="libreta.svg">libreta.svg</option>
+                    <option value="stickers.svg">stickers.svg</option>
+                    <option value="papeleria.svg">papeleria.svg</option>
+                    <option value="accesorio.svg">accesorio.svg</option>
+                    <option value="regalo.svg">regalo.svg</option>
+                  </select>
+                </div>
+                <div class="field-group checkbox-field">
+                  <label>
+                    <input id="admin-product-active" type="checkbox" checked />
+                    Producto activo
+                  </label>
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="admin-product-short">Descripción corta</label>
+                <textarea id="admin-product-short" rows="2" required></textarea>
+              </div>
+              <div class="field-group">
+                <label for="admin-product-description">Descripción completa</label>
+                <textarea id="admin-product-description" rows="4" required></textarea>
+              </div>
+              <div class="inline-actions">
+                <button class="btn btn-primary" type="submit">Guardar producto</button>
+                <button class="btn btn-secondary" type="button" id="admin-product-reset">Limpiar</button>
+              </div>
+            </form>
+
+            <div id="admin-products-table" class="table-wrapper"></div>
+          </div>
+
+          <div class="card">
+            <h3>Pedidos</h3>
+            <div id="admin-orders-table" class="table-wrapper"></div>
+
+            <h3 class="top-space">Usuarios</h3>
+            <div id="admin-users-table" class="table-wrapper"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="success-view" class="page-view hidden">
+      <div class="container section-spacer">
+        <div class="card success-card">
+          <h2>¡Gracias por tu compra!</h2>
+          <p>Tu pedido fue creado correctamente. Revisa tu cuenta para ver el estado y el historial de compras.</p>
+          <a href="#account" class="btn btn-primary">Ir a mi cuenta</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Xijúm</strong>
+        <p>Papelería creativa para organizar tu vida con calidez.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#catalog">Catálogo</a>
+        <a href="#account">Mi cuenta</a>
+        <a href="#admin">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
