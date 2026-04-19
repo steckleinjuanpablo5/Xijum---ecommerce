@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Logo Xijúm</title>
+  <desc id="desc">Círculo rosa claro con una X coral al centro para la marca Xijúm.</desc>
+  <circle cx="128" cy="128" r="112" fill="#f7e9e8"/>
+  <path d="M88 78 L168 178" stroke="#e77b72" stroke-width="18" stroke-linecap="round"/>
+  <path d="M168 78 L88 178" stroke="#e77b72" stroke-width="18" stroke-linecap="round"/>
+</svg>
